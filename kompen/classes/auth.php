@@ -28,9 +28,8 @@ class Auth{
 
     public function logout(){
         session_unset();
-        $_SESSION = array();
-         session_destroy();
-         header("location: login.php");
+        session_destroy();
+        header("location: login.php");
     }
 
     private function checkUser($table, $field, $username, $password){

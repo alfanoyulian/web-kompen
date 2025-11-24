@@ -89,7 +89,7 @@ if (isset($_POST['login']) && empty($customScript)) {
             
             <!-- judul -->
             <h1 class="h4 text-white fw-bold mb-1 position-relative z-1">Kompen Polinela</h1>
-            <p class="text-white-50 mb-0 small position-relative z-1">Silakan masuk untuk melanjutkan</p>
+            <p class="text-white-50 mb-0 small position-relative z-1">"Lebih baik terlihat cupu daripada jadi cepu"</p>
         </div>
 
         <!-- Body -->
@@ -99,7 +99,7 @@ if (isset($_POST['login']) && empty($customScript)) {
                 
                 <!-- Username Input -->
                 <div class="mb-4">
-                    <label for="username" class="form-label fw-medium text-secondary small">Username</label>
+                    <label for="username" class="form-label fw-medium text-secondary small">NPM</label>
                     <div class="position-relative">
                         <!-- Icon -->
                         <span class="position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary opacity-50 pe-none">
@@ -110,7 +110,7 @@ if (isset($_POST['login']) && empty($customScript)) {
                         </span>
                         
                         <input type="text" class="form-control bg-light border-light-subtle py-3 ps-5 rounded-3" 
-                               id="username" name="username" placeholder="Masukkan username Anda" required autocomplete="username">
+                               id="username" name="username" placeholder="Masukkan NPM Anda" required autocomplete="username">
                     </div>
                 </div>
 
@@ -164,7 +164,13 @@ if (isset($_POST['login']) && empty($customScript)) {
 
     <script>
         // Config Toastr
-        toastr.options = { "closeButton": true, "progressBar": true, "positionClass": "toast-top-right", "timeOut": "1000" };
+        toastr.options = { 
+            "closeButton": true, 
+            "progressBar": true, 
+            "positionClass": 
+            "toast-top-right", 
+            "timeOut": "3000" 
+        };
 
         // Toggle Password Logika
         document.getElementById('togglePassword').addEventListener('click', function() {

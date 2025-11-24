@@ -17,7 +17,14 @@
 
     $id_mhs = $_SESSION["data"]["id"] ?? 0;
     $nama = $_SESSION["data"]["nama_mhs"] ?? 0;
+    $nama = $_SESSION["data"]["nama_mhs"] ?? 0;
+    $jam_kompen = $_SESSION["data"]["jam_kompen"] ??"";
 
+    //LOGIC FORMAT JAM:MENIT 
+    $jam_kompen = $_SESSION["data"]["jam_kompen"] ?? 0;
+    $jam = floor($jam_kompen / 60);
+    $menit = $jam_kompen % 60;
+    $jmlh_kompen = $jam ." Jam " . $menit . " Menit";
     
     if(isset($_POST["logout"])){
         $logout = $auth->logout();
@@ -69,85 +76,24 @@
     <div id="sidebar-overlay" class="position-fixed top-0 start-0 w-100 h-100" onclick="toggleSidebar()"></div>
 
     <!-- Sidebar -->
-    <aside id="sidebar" class="bg-white border-end position-fixed top-0 start-0 h-100 d-flex flex-column">
-        <div class="p-4 border-bottom d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center gap-2">
-                <div class="rounded-3 bg-primary d-flex align-items-center justify-content-center text-white fw-bold" style="width: 32px; height: 32px">K</div>
-                <h5 class="mb-0 fw-bold text-dark">KompenHub</h5>
-            </div>
-            <button class="btn btn-link text-secondary p-0 d-md-none" onclick="toggleSidebar()">
-                <i data-lucide="x" width="24"></i>
-            </button>
-        </div>
-
-        <nav class="flex-grow-1 p-3 overflow-auto">
-            <ul class="nav flex-column gap-2">
-                <li class="nav-item">
-                    <a href="#" class="nav-link w-100 d-flex align-items-center gap-3 px-3 py-2 rounded-3 fw-medium active">
-                        <i data-lucide="layout-dashboard" width="18"></i> Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link w-100 d-flex align-items-center gap-3 px-3 py-2 rounded-3 fw-medium">
-                        <i data-lucide="clipboard-list" width="18"></i> Daftar Tugas
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link w-100 d-flex align-items-center gap-3 px-3 py-2 rounded-3 fw-medium">
-                        <i data-lucide="check-square" width="18"></i> Riwayat
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link w-100 d-flex align-items-center gap-3 px-3 py-2 rounded-3 fw-medium">
-                        <i data-lucide="user" width="18"></i> Profil
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
-        <div class="p-3 border-top">
-            <form method="POST">
-                <button type="submit" name="logout" class="btn btn-light w-100 d-flex align-items-center gap-3 px-3 py-2 text-danger rounded-3 fw-medium">
-                    <i data-lucide="log-out" width="18"></i> Logout
-                </button>
-            </form>
-        </div>
-    </aside>
+    <?php
+        include'includes/sidebar.php';
+    ?>
 
     <!-- Main Content -->
     <main id="main-content" class="min-vh-100 d-flex flex-column">
         <!-- Header -->
-        <header class="bg-white border-bottom sticky-top px-4 py-3 d-flex align-items-center justify-content-between shadow-sm">
-            <div class="d-flex align-items-center gap-3">
-                <button onclick="toggleSidebar()" class="btn btn-light text-secondary border-0 p-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px">
-                    <i data-lucide="menu" width="24"></i>
-                </button>
-                <h5 class="m-0 fw-bold text-dark d-none d-sm-block">Dashboard Mahasiswa</h5>
-            </div>
 
-            <div class="d-flex align-items-center gap-4">
-                <div class="position-relative">
-                    <i data-lucide="bell" width="20" class="text-secondary"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
-                        <span class="visually-hidden">New alerts</span>
-                    </span>
-                </div>
-                <div class="d-flex align-items-center gap-3 ps-4 border-start">
-                    <div class="text-end d-none d-md-block">
-                        <p class="m-0 fw-bold small text-dark" id="user-name"><?= htmlspecialchars($nama ?? 'Mahasiswa') ?></p>
-                        <p class="m-0 small text-muted" style="font-size: 11px" id="user-nim"><?= htmlspecialchars($_SESSION['data']['npm'] ?? '') ?></p>
-                    </div>
-                    <img id="user-avatar" src="<?= htmlspecialchars($_SESSION['data']['avatar'] ?? 'https://via.placeholder.com/40') ?>" alt="Profile" class="rounded-circle border shadow-sm" style="width: 40px; height: 40px; object-fit: cover;">
-                </div>
-            </div>
-        </header>
+        <?php
+            include'includes/header.php';
+        ?>
 
         <!-- Content Body -->
         <div class="p-4 p-lg-5 container-fluid">
 
             <!-- Welcome Banner -->
             <div class="mb-5">
-                <h2 class="fw-bold text-dark mb-2">Selamat Datang, <span id="user-firstname"><?= htmlspecialchars(explode(' ', $nama)[0] ?? 'Mahasiswa') ?></span>! 👋</h2>
+                <h2 class="fw-bold text-dark mb-2">Selamat Datang, <span id="user-firstname"><?= htmlspecialchars($nama ?? 'Mahasiswa') ?></span>! 👋</h2>
                 <p class="text-secondary">Berikut adalah status kompensasi dan tugas yang tersedia untuk anda.</p>
             </div>
 
@@ -160,7 +106,7 @@
                         <div class="card-body p-4 d-flex justify-content-between align-items-start">
                             <div>
                                 <p class="text-muted fw-medium small mb-1">Tanggungan Kompen</p>
-                                <h3 class="fw-bold text-dark mb-1" id="stat-kompen"><?= intval($_SESSION['data']['jam_kompen'] ?? 0) ?> Jam</h3>
+                                <h3 class="fw-bold text-dark mb-1" id="stat-kompen"><?= $jmlh_kompen ?? 0 ?></h3>
                                 <p class="text-secondary small mb-0 opacity-75">Harus diselesaikan segera</p>
                             </div>
                             <div class="p-3 rounded-3 text-white bg-warning d-flex align-items-center justify-content-center shadow-sm">
@@ -328,7 +274,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         lucide.createIcons();
-
         function filterLocation(value) {
             const cards = document.querySelectorAll('.task-card');
             cards.forEach(c => {

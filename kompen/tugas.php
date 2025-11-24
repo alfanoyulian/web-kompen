@@ -50,11 +50,13 @@
                 <td><?= $t["lokasi"]; ?></td>
                 <td><?= $t["jumlah_jam"]; ?></td>
                 <td><?= $t["kuota"]; ?></td>
+                <td><?= $t["kuota"]; ?></td>
                 <td><?= $status; ?></td>
                 <td>
                     <form method="POST">
                         <input type="hidden" name="id_tugas" value="<?= $t["id"] ?>">
                         <button type="submit" name="selesai" <?= $btn_disabled ?>>Selesaikan</button>
+                        <button type="submit" name="">Hapus</button>
                     </form>
                 </td>
             </tr>
