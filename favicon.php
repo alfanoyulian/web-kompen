@@ -1,1 +1,0 @@
-<link rel="icon" href="assets/img/logojapalam1.svg" type="image/x-icon"/>
