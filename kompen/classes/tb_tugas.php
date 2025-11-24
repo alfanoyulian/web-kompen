@@ -27,6 +27,7 @@ class Tugas{
             foreach ($dataTerdaftar["data"] as $row) {
                 $id_tugas = $row["id_tugas"];
                 $status = $row["status"];
+                $status_tugas = $row["status_tugas"];
                 $query = $this->conn->prepare("SELECT * FROM tb_tugas WHERE id = ?");
                 $query->bind_param("i", $id_tugas);
                 $query->execute();
@@ -34,6 +35,7 @@ class Tugas{
         
                 if ($detail = $result->fetch_assoc()) {
                     $detail["status"] = $status;
+                    $detail["status_tugas"] = $status_tugas;
                     $tugas[] = $detail;
                 }
             }

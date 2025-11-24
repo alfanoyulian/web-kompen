@@ -31,27 +31,29 @@
             <th>Deskripsi</th>
             <th>Lokasi</th>
             <th>Tanggal dan Waktu</th>
-            <th>Jam Kompen</th>
             <th>Kuota</th>
+            <th>Jam Kompen</th>
+            <th>status</th>
+            <th>Status Tugas</th 
             <th>Status</th>
-            <th>Action</th>
         </thead>
         <tbody>
             <?php
                 $no = 1;
                 foreach($tugasTerdaftar["data"] as $t){
-                $status = ($t["status"] == "belum" ? "Belum Selesai" : "Sudah Selesai");
-                $btn_disabled = ($t["status"] == "belum" ? "" : "disabled");
+                    $status = ($t["status"] == "belum" ? "Belum Selesai" : "Sudah Selesai");
+                    $status_tugas = $t["status_tugas"];
+                    $btn_disabled = ($t["status"] == "belum" ? "" : "disabled");
             ?>
             <tr>
                 <td><?= $no++ ?></td>
                 <td><?= $t["nama_tugas"]; ?></td>
                 <td><?= $t["deskripsi"]; ?></td>
                 <td><?= $t["lokasi"]; ?></td>
+                <td><?= $t["kuota"]; ?></td>
+                <td></td>
                 <td><?= $t["jumlah_jam"]; ?></td>
-                <td><?= $t["kuota"]; ?></td>
-                <td><?= $t["kuota"]; ?></td>
-                <td><?= $status; ?></td>
+                <td><?= $status_tugas; ?></td>
                 <td>
                     <form method="POST">
                         <input type="hidden" name="id_tugas" value="<?= $t["id"] ?>">

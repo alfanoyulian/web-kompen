@@ -20,7 +20,9 @@
     $nama = $_SESSION["data"]["nama_mhs"] ?? 0;
     $jam_kompen = $_SESSION["data"]["jam_kompen"] ??"";
 
-    //LOGIC FORMAT JAM:MENIT 
+
+    
+    //LOGIC FORMAT JAM:MENIT KOMPEN MAHASISWA
     $jam_kompen = $_SESSION["data"]["jam_kompen"] ?? 0;
     $jam = floor($jam_kompen / 60);
     $menit = $jam_kompen % 60;
@@ -182,6 +184,12 @@
                 <?php else: ?>
                     <?php foreach ($data_tugas as $task):
                         $task_id = intval($task['id']);
+                        //LOGIC FORMAT JAM:MENIT KOMPEN TUGAS
+                        $jam_kompen_tugas = $task["jumlah_jam"] ?? 0;
+                        $jam = floor($jam_kompen_tugas / 60);
+                        $menit = $jam_kompen_tugas % 60;
+                        $jmlh_jam_tugas = $jam ." Jam " . $menit . " Menit";
+
                         // jumlah terdaftar melalui model terdaftar
                         $cnt = $terdaftar->countTerdaftar($task_id);
                         $registered_count = isset($cnt['count']) ? intval($cnt['count']) : (isset($cnt['0'])?intval($cnt[0]):0);
@@ -189,7 +197,6 @@
                         $percentage = $quota > 0 ? round(($registered_count / $quota) * 100) : 0;
                         $isFull = $quota > 0 && $registered_count >= $quota;
                         $isRegistered = in_array($task_id, $registered_task_ids);
-                        $jam_value = intval($task['jumlah_jam'] ?? $task['jam'] ?? 0);
                         $deadline = htmlspecialchars($task['deadline'] ?? '');
                     ?>
                     <div class="col-12 col-md-6 col-xl-3 task-card" data-location="<?= htmlspecialchars($task['lokasi'] ?? '') ?>">
@@ -197,7 +204,7 @@
                             <div class="card-body p-4 d-flex flex-column">
                                 <div class="d-flex justify-content-between align-items-start mb-3">
                                     <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill fw-semibold px-3 py-2">
-                                        <?= $jam_value ?> Jam
+                                        <?= $jmlh_jam_tugas ?> 
                                     </span>
                                     <?= $isRegistered ? '<span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill fw-semibold px-3 py-2">Terdaftar</span>' : '' ?>
                                 </div>
@@ -219,7 +226,7 @@
                                         <span>Deadline: <?= $deadline ?></span>
                                     </div>
                                 </div>
-
+                                
                                 <!-- kuota Progress -->
                                 <div class="mt-auto">
                                     <div class="d-flex justify-content-between small fw-medium mb-1">
