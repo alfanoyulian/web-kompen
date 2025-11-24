@@ -1,0 +1,81 @@
+:root {
+            --bs-primary-rgb: 13, 110, 253;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styles */
+        #sidebar {
+            width: 260px;
+            transition: transform 0.3s ease-in-out;
+            z-index: 1040;
+        }
+
+        /* Main Content Transition */
+        #main-content {
+            transition: margin-left 0.3s ease-in-out;
+        }
+
+        /* Mobile Overlay */
+        #sidebar-overlay {
+            display: none;
+            background: rgba(0,0,0,0.5);
+            z-index: 1030;
+        }
+        #sidebar-overlay.active {
+            display: block;
+        }
+
+        /* Responsive Sidebar Logic */
+        @media (min-width: 768px) {
+            #sidebar.collapsed {
+                transform: translateX(-100%);
+            }
+            #main-content {
+                margin-left: 260px;
+            }
+            #main-content.expanded {
+                margin-left: 0;
+            }
+        }
+        @media (max-width: 767.98px) {
+            #sidebar {
+                transform: translateX(-100%);
+            }
+            #sidebar.mobile-open {
+                transform: translateX(0);
+            }
+            #main-content {
+                margin-left: 0 !important;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #ced4da; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #adb5bd; }
+
+        /* Card Hover Efek */
+        .hover-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .hover-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.1) !important;
+        }
+
+        /* Nav Link Active Status */
+        .nav-link.active {
+            background-color: rgba(var(--bs-primary-rgb), 0.1);
+            color: var(--bs-primary);
+        }
+        .nav-link:not(.active) {
+            color: #6c757d;
+        }
+        .nav-link:hover:not(.active) {
+            background-color: #e9ecef;
+        }
