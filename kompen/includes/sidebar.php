@@ -12,7 +12,7 @@
         <nav class="flex-grow-1 p-3 overflow-auto">
             <ul class="nav flex-column gap-2">
                 <li class="nav-item">
-                    <a href="#" class="nav-link w-100 d-flex align-items-center gap-3 px-3 py-2 rounded-3 fw-medium active">
+                    <a href="dashboard_mhs.php" class="nav-link w-100 d-flex align-items-center gap-3 px-3 py-2 rounded-3 fw-medium active">
                         <i data-lucide="layout-dashboard" width="18"></i> Dashboard
                     </a>
                 </li>
