@@ -51,20 +51,35 @@ class Tugas{
         }
     }
     public function selesaikanTugas($id_mhs, $id_tugas){
-            $tugas_terdaftar = $this->tugasTerdaftar($id_mhs);
-            if ($tugas_terdaftar["status"] == "belum") {
-                $query = $this->conn->prepare("UPDATE tb_mhs_terdaftar SET status = 'selesai' WHERE id_user = ? AND id_tugas = ?");
-                $query->bind_param("ii", $id_mhs, $id_tugas);
-                $query->execute();
-                return [
-                    "message" => "Tugas Selesai",
-                ];
-            }else{
-                return [
-                    "message" => "Tugas Sudah Diselesaikan Sebelumnya",
-                ];
+        $tugas_terdaftar = $this->tugasTerdaftar($id_mhs);
+        // cari data tugas sesuai id_tugas
+        $status = null;
+        foreach ($tugas_terdaftar["data"] as $tugas) {
+            if ($tugas["id"] == $id_tugas) { 
+                $status = $tugas["status"];
+                break;
             }
         }
+        // jika tidak ditemukan
+        if ($status === null) {
+            return ["message" => "Tugas tidak ditemukan"];
+        }
+        // cek apakah status masih 'belum'
+        if ($status === "belum") {
+            $query = $this->conn->prepare("
+                UPDATE tb_mhs_terdaftar 
+                SET status = 'selesai' 
+                WHERE id_user = ? AND id_tugas = ?
+            ");
+            $query->bind_param("ii", $id_mhs, $id_tugas);
+            $query->execute();
+
+            return ["message" => "Tugas Selesai"];
+        } else {
+            return ["message" => "Tugas sudah diselesaikan sebelumnya"];
+        }
+    }
+
 
     // history Tugas ACC
     public function historyTugas($id_mhs){
@@ -81,29 +96,10 @@ class Tugas{
                 }
             }
         }
-
         return [
             "count" => count($tugas_acc),
             "data"  => $tugas_acc
         ];
-    }
-
-    // Lanjuts Besok
-    public function kurangiJamKompen($id_mhs){
-        $tugas_terdaftar = $this->tugasTerdaftar($id_mhs);
-        $status_tugas = $tugas_terdaftar["status_tugas"];
-        $jam = $tugas_terdaftar["data"]["jumlah_jam"];
-        // Update Session Jam Kompen
-        // $_SESSION["data"]["jam_kompen"] -= $jam;
-        // pastikan tidak minus
-        if ($_SESSION["data"]["jam_kompen"] < 0) {
-            $_SESSION["data"]["jam_kompen"] = 0;
-        }
-        // Kurangi jam_kompen pada tabel user
-        $query = $this->conn->prepare("UPDATE tb_mahasiswa SET jam_kompen = jam_kompen - ? WHERE id = ?");
-        $query->bind_param("ii", $jam, $id_mhs);
-
-        return $query->execute();
     }
 }
 ?>

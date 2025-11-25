@@ -6,14 +6,12 @@
     }
 
     include "classes/databases.php";
-    include "classes/auth.php";
     include "classes/tb_tugas.php";
     include "classes/tb_terdaftar.php";
 
     $db = new Database();
     $terdaftar = new Terdaftar($db);
     $tugas = new Tugas($db, $terdaftar);
-    $auth = new Auth($db);
 
     $id_mhs = $_SESSION["data"]["id"] ?? 0;
     $nama = $_SESSION["data"]["nama_mhs"] ?? 0;
@@ -27,10 +25,6 @@
     $jam = floor($jam_kompen / 60);
     $menit = $jam_kompen % 60;
     $jmlh_kompen = $jam ." Jam " . $menit . " Menit";
-    
-    if(isset($_POST["logout"])){
-        $logout = $auth->logout();
-    }
 
     // pengiriman formulir: daftar
     if (isset($_POST['daftar'])) {

@@ -8,11 +8,10 @@
     include "classes/databases.php";
     include "classes/tb_tugas.php";
     include "classes/tb_terdaftar.php";
+    include "includes/icons.php";
     
     $id_mhs = $_SESSION["data"]["id"];
     $nama = $_SESSION["data"]["nama_mhs"];
-    
-   
 
     $db = new Database();
     $terdaftar = new Terdaftar($db);
@@ -23,16 +22,16 @@
     if(isset($_POST["selesai"])){
         $id_tugas = $_POST["id_tugas"];
         $selesaikanTugas = $tugas->selesaikanTugas($id_mhs, $id_tugas);
-        echo "<script>alert('" . $selesaikanTugas['message'] . "'); location.href='tugas.php';</script>";
+        echo "<script>alert('" . $selesaikanTugas['message'] . "'); location.href='tugas_terdaftar.php';</script>";
     }
     
     // Hapus Tugas
-    if(isset($_POST["hapus"])){
-        $id_tugas = $_POST["id_tugas"];
-        $hapusTugas = $tugas->hapusTugas($id_mhs, $id_tugas);
-        echo "<script>alert('" . $hapusTugas['message'] . "'); location.href='tugas.php';</script>";
-        echo "<script>alert('Fitur hapus akan segera tersedia'); location.href='tugas.php';</script>";
-    }
+    // if(isset($_POST["hapus"])){
+    //     $id_tugas = $_POST["id_tugas"];
+    //     $hapusTugas = $tugas->hapusTugas($id_mhs, $id_tugas);
+    //     echo "<script>alert('" . $hapusTugas['message'] . "'); location.href='tugas.php';</script>";
+    //     echo "<script>alert('Fitur hapus akan segera tersedia'); location.href='tugas.php';</script>";
+    // }
 
     // Filter Logikaaaaaaaaaaaaaa
     $filter = isset($_GET['filter']) ? $_GET['filter'] : 'all';
@@ -105,15 +104,7 @@
         return "<span class=\"badge rounded-pill fw-medium {$classes}\">{$dot}{$label}</span>";
     }
 
-    // SVG Icons
-    $icons = [
-        'map' => '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
-        'calendar' => '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
-        'clock' => '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
-        'users' => '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
-        'trash' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
-        'check' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
-    ];
+
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -134,8 +125,6 @@
     
     <style>
         :root {
-            --bs-primary: #4f46e5;
-            --bs-primary-rgb: 79, 70, 229;
             --bs-body-bg: #f9fafb;
             --bs-font-sans-serif: 'Inter', sans-serif;
             --bs-border-color-translucent: rgba(0,0,0,0.06);
@@ -249,7 +238,7 @@
                                         foreach ($filtered_tasks as $row): 
                                             $jam_kompen_tugas = $row["jumlah_jam"] ?? 0;
                                             $jmlh_jam_tugas = formatDuration($jam_kompen_tugas);
-                                            $isDone = ($row["status"] == "selesai" || $row["status"] == "sudah selesai");
+                                            $isDone = ($row["status"] == "selesai");
                                             $status_display = ($row["status"] == "belum" ? "belum" : "selesai");
                                         ?>
                                             <tr class="border-bottom">
@@ -292,9 +281,8 @@
                                                     <div class="d-flex justify-content-end gap-2">
                                                         <form method="POST" style="display: inline;">
                                                             <input type="hidden" name="id_tugas" value="<?= $row['id'] ?>">
-                                                            <button type="submit" name="selesai"
-                                                                    class="btn btn-sm d-flex align-items-center fw-medium <?= $isDone ? 'btn-light text-secondary border' : 'btn-primary' ?>"
-                                                                    <?= $isDone ? 'disabled' : '' ?>>
+                                                            <button type="submit" name="selesai" class="btn btn-sm d-flex align-items-center fw-medium <?= $isDone ? 'btn-light text-secondary border' : 'btn-primary' ?>"
+                                                                <?= $isDone ? 'disabled' : '' ?>>
                                                                 <?= $isDone ? $icons['check'] : '' ?> 
                                                                 <?= $isDone ? 'Selesai' : 'Selesaikan' ?>
                                                             </button>

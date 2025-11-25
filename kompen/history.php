@@ -47,8 +47,8 @@
 
             <!-- Welcome Banner -->
             <div class="mb-5">
-                <h2 class="fw-bold text-dark mb-2">Selamat Datang, <span id="user-firstname"><?= htmlspecialchars($nama ?? 'Mahasiswa') ?></span>! 👋</h2>
-                <p class="text-secondary">Berikut adalah status kompensasi dan tugas yang tersedia untuk anda.</p>
+                <h2 class="fw-bold text-dark mb-2">History Kompen yang Sudah Dikerjakan.</h2>
+                <p class="text-secondary">Berikut adalah history kompensasi dan tugas yang sudah anda kerjakan.</p>
             </div>
             
             <table border="1" cellpadding="8" cellspacing="0">
@@ -74,7 +74,7 @@
                                 $jam = floor($jam_kompen_tugas / 60);
                                 $menit = $jam_kompen_tugas % 60;
                                 $jmlh_jam_tugas = $jam ." Jam " . $menit . " Menit";
-                                $kurangi_jam_kompen = $tugas->kurangiJamKompen($id_mhs, $jam_kompen_tugas);
+                                // $kurangi_jam_kompen = $tugas->kurangiJamKompen($id_mhs, $jam_kompen_tugas);
                         ?>
                             <!-- LOGIC FORMAT JAM:MENIT KOMPEN TUGAS -->
                             <tr>

@@ -74,18 +74,16 @@ if (isset($_POST['login']) && empty($customScript)) {
     <div class="card border-0 shadow-lg overflow-hidden" style="width: 100%; max-width: 400px; border-radius: 24px;">
         
         <!-- Header Section  -->
-        <div class="text-center p-5 position-relative" style="background-color: #4F46E5;">
+        <div class="text-center p-5 position-relative" style="background-color: #0c6aed;">
             <!-- Overlay skibidi -->
             <div class="position-absolute top-0 start-0 w-100 h-100" style="background-image: radial-gradient(rgba(255,255,255,0.2) 1px, transparent 1px); background-size: 20px 20px; opacity: 0.5; pointer-events: none;"></div>
             
             <!-- Avatar -->
-            <div class="d-flex align-items-center justify-content-center mx-auto mb-3 rounded-circle position-relative z-1" 
-                 style="width: 64px; height: 64px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(4px);">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-            </div>
+                <div class="d-flex align-items-center justify-content-center mx-auto mb-3 rounded-circle position-relative z-1" 
+                    style="width: 90px; height: 90px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(4px);">
+                    <img src="img/polinela.png" alt="Polinela" 
+                        style="width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0 0 1px white);">
+                </div>
             
             <!-- judul -->
             <h1 class="h4 text-white fw-bold mb-1 position-relative z-1">Kompen Polinela</h1>
@@ -146,7 +144,7 @@ if (isset($_POST['login']) && empty($customScript)) {
 
                 <!-- Submit Button -->
                 <button type="submit" name="login" class="btn text-white w-100 py-2 rounded-3 fw-semibold shadow-sm mt-2" 
-                        style="background-color: #4F46E5; border-color: #4F46E5;">
+                        style="background-color: #0c6aed; border-color: #0c6aed;">
                     Masuk Sekarang
                 </button>
             </form>

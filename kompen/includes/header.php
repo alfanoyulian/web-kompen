@@ -18,7 +18,7 @@
                         <p class="m-0 fw-bold small text-dark" id="user-name"><?= htmlspecialchars($nama ?? 'Mahasiswa') ?></p>
                         <p class="m-0 small text-muted" style="font-size: 11px" id="user-nim"><?= htmlspecialchars($_SESSION['data']['npm'] ?? '') ?></p>
                     </div>
-                    <img id="" src="/kompen/img/profil.jpg" alt="" class="rounded-circle border shadow-sm" style="width: 40px; height: 40px; object-fit: cover;">
+                    <img id="" src="img/profil.jpg" alt="" class="rounded-circle border shadow-sm" style="width: 40px; height: 40px; object-fit: cover;">
                 </div>
             </div>
         </header>
