@@ -17,12 +17,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="tugas.php" class="nav-link w-100 d-flex align-items-center gap-3 px-3 py-2 rounded-3 fw-medium">
+                    <a href="tugas_terdaftar.php" class="nav-link w-100 d-flex align-items-center gap-3 px-3 py-2 rounded-3 fw-medium">
                         <i data-lucide="clipboard-list" width="18"></i> Daftar Tugas
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link w-100 d-flex align-items-center gap-3 px-3 py-2 rounded-3 fw-medium">
+                    <a href="history.php" class="nav-link w-100 d-flex align-items-center gap-3 px-3 py-2 rounded-3 fw-medium">
                         <i data-lucide="check-square" width="18"></i> Riwayat
                     </a>
                 </li>

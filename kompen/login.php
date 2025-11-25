@@ -12,7 +12,7 @@ if (isset($_SESSION['location'])) {
     // Tampilkan notifikasi info terus redirect
     $customScript = "
         toastr.info('Anda sudah login, mengalihkan...', 'Info');
-        setTimeout(function() { window.location.href = '$loc'; }, 1000);
+        setTimeout(function() { window.location.href = '$loc'; }, 2000);
     ";
 }
 
@@ -43,7 +43,7 @@ if (isset($_POST['login']) && empty($customScript)) {
             // Toastr SUKSES
             $customScript = "
                 toastr.success('$msg', 'Login Berhasil');
-                setTimeout(function() { window.location.href = '$loc'; }, 1500);
+                setTimeout(function() { window.location.href = '$loc'; }, 2000);
             ";
         } else {
             // Toastr GAGAL
@@ -169,7 +169,7 @@ if (isset($_POST['login']) && empty($customScript)) {
             "progressBar": true, 
             "positionClass": 
             "toast-top-right", 
-            "timeOut": "3000" 
+            "timeOut": "2000" 
         };
 
         // Toggle Password Logika

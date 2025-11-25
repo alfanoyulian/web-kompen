@@ -45,23 +45,23 @@ class Terdaftar{
         ];
     }
 
-public function daftarKegiatan($id_user, $id_tugas){
-    $row = $this->terdaftar($id_user, $id_tugas);
-    if ($row['count'] == 0) {
-        $query = $this->conn->prepare("INSERT INTO tb_mhs_terdaftar (id_user, id_tugas) VALUES(?, ?)");
-        $query->bind_param("ii", $id_user, $id_tugas);
-        $query->execute();
-        return [
-            "message" => "Berhasil Mendaftar Kegiatan",
-            "status" => true
-        ];
-    } else {
-        return [
-            "message" => "Anda Sudah Mendaftar Kegiatan",
-            "status" => false
-        ];
+    public function daftarKegiatan($id_user, $id_tugas){
+        $row = $this->terdaftar($id_user, $id_tugas);
+        if ($row['count'] == 0) {
+            $query = $this->conn->prepare("INSERT INTO tb_mhs_terdaftar (id_user, id_tugas) VALUES(?, ?)");
+            $query->bind_param("ii", $id_user, $id_tugas);
+            $query->execute();
+            return [
+                "message" => "Berhasil Mendaftar Kegiatan",
+                "status" => true
+            ];
+        } else {
+            return [
+                "message" => "Anda Sudah Mendaftar Kegiatan",
+                "status" => false
+            ];
+        }
     }
-}
 }
 
 ?>

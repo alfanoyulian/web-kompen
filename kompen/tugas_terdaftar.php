@@ -40,19 +40,24 @@
         <tbody>
             <?php
                 $no = 1;
-                foreach($tugasTerdaftar["data"] as $t){
-                    $status = ($t["status"] == "belum" ? "Belum Selesai" : "Sudah Selesai");
-                    $status_tugas = $t["status_tugas"];
-                    $btn_disabled = ($t["status"] == "belum" ? "" : "disabled");
+                foreach($tugasTerdaftar["data"] as $row){
+                    $jam_kompen_tugas = $row["jumlah_jam"] ?? 0;
+                    $jam = floor($jam_kompen_tugas / 60);
+                    $menit = $jam_kompen_tugas % 60;
+                    $jmlh_jam_tugas = $jam ." Jam " . $menit . " Menit";
+
+                    $status = ($row["status"] == "belum" ? "Belum Selesai" : "Sudah Selesai");
+                    $status_tugas = $row["status_tugas"];
+                    $btn_disabled = ($row["status"] == "belum" ? "" : "disabled");
             ?>
             <tr>
                 <td><?= $no++ ?></td>
-                <td><?= $t["nama_tugas"]; ?></td>
-                <td><?= $t["deskripsi"]; ?></td>
-                <td><?= $t["lokasi"]; ?></td>
-                <td><?= $t["kuota"]; ?></td>
-                <td></td>
-                <td><?= $t["jumlah_jam"]; ?></td>
+                <td><?= $row["nama_tugas"]; ?></td>
+                <td><?= $row["deskripsi"]; ?></td>
+                <td><?= $row["lokasi"]; ?></td>
+                <td><?= $row["tanggal"]; ?></td>
+                <td><?= $row["kuota"]; ?></td>
+                <td><?= $jmlh_jam_tugas; ?></td>
                 <td><?= $status_tugas; ?></td>
                 <td>
                     <form method="POST">

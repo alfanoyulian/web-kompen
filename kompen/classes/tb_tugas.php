@@ -21,10 +21,10 @@ class Tugas{
     }
 
     public function tugasTerdaftar($id_mhs){
-        $dataTerdaftar = $this->terdaftarObj->mhsTerdaftar($id_mhs);
-        if ($dataTerdaftar["count"] > 0) {
+        $tugas_terdaftar = $this->terdaftarObj->mhsTerdaftar($id_mhs);
+        if ($tugas_terdaftar["count"] > 0) {
             $tugas = [];
-            foreach ($dataTerdaftar["data"] as $row) {
+            foreach ($tugas_terdaftar["data"] as $row) {
                 $id_tugas = $row["id_tugas"];
                 $status = $row["status"];
                 $status_tugas = $row["status_tugas"];
@@ -42,7 +42,6 @@ class Tugas{
             return [
                 "count" => count($tugas),
                 "data" => $tugas,
-                "status" => $status
             ];
         }else{
             return [
@@ -66,5 +65,45 @@ class Tugas{
                 ];
             }
         }
+
+    // history Tugas ACC
+    public function historyTugas($id_mhs){
+        // ambil semua tugas yg terdaftar milik mahasiswa
+        $tugas_terdaftar = $this->tugasTerdaftar($id_mhs);
+
+        $tugas_acc = [];
+        if ($tugas_terdaftar["count"] > 0) {
+            foreach ($tugas_terdaftar["data"] as $tugas) {
+
+                // cukup filter yang status_tugas = acc
+                if ($tugas["status_tugas"] === "acc") {
+                    $tugas_acc[] = $tugas;
+                }
+            }
+        }
+
+        return [
+            "count" => count($tugas_acc),
+            "data"  => $tugas_acc
+        ];
+    }
+
+    // Lanjuts Besok
+    public function kurangiJamKompen($id_mhs){
+        $tugas_terdaftar = $this->tugasTerdaftar($id_mhs);
+        $status_tugas = $tugas_terdaftar["status_tugas"];
+        $jam = $tugas_terdaftar["data"]["jumlah_jam"];
+        // Update Session Jam Kompen
+        // $_SESSION["data"]["jam_kompen"] -= $jam;
+        // pastikan tidak minus
+        if ($_SESSION["data"]["jam_kompen"] < 0) {
+            $_SESSION["data"]["jam_kompen"] = 0;
+        }
+        // Kurangi jam_kompen pada tabel user
+        $query = $this->conn->prepare("UPDATE tb_mahasiswa SET jam_kompen = jam_kompen - ? WHERE id = ?");
+        $query->bind_param("ii", $jam, $id_mhs);
+
+        return $query->execute();
+    }
 }
 ?>
