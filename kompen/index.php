@@ -87,7 +87,7 @@ if (isset($_POST['login']) && empty($customScript)) {
             
             <!-- judul -->
             <h1 class="h4 text-white fw-bold mb-1 position-relative z-1">Kompen Polinela</h1>
-            <p class="text-white-50 mb-0 small position-relative z-1">"Lebih baik terlihat cupu daripada jadi cepu"</p>
+            <p class="text-white-50 mb-0 small position-relative z-1">Keterlambatan adalah pelajaran, kompen adalah kesempatan untuk menjadi lebih baik</p>
         </div>
 
         <!-- Body -->

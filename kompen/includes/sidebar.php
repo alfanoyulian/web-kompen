@@ -12,7 +12,7 @@
 
         if(isset($_POST["logout"])){
             $logout = $auth->logout();
-            header("Location: login.php");
+            header("Location: index.php");
             exit();
         }
     ?>
